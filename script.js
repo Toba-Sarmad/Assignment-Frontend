@@ -7,3 +7,24 @@ const categoryAPI = {
     meat: "https://world.openfoodfacts.org/api/v2/search?categories_tags=meat",
     drinks: "https://world.openfoodfacts.org/api/v2/search?categories_tags=beverages",
 };
+
+function displayProducts(list) {
+    productList.innerHTML = "";
+
+    list.forEach(p => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        
+
+        card.innerHTML = `
+            <img src="${p.image_url}">
+            <h3>${p.product_name}</h3>
+            <p>${p.brands || ''}</p>
+            <p>${(p.nutriments?.energy_value || 100) / 10} kr</p>
+        `;
+
+        productList.appendChild(card);
+    });
+}
+
