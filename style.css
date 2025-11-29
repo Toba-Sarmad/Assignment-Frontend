@@ -52,3 +52,12 @@ main {
     gap: 20px;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
+
+
+cart {
+    flex: 1;
+    background: white;
+    padding: 15px;
+    margin-left: 20px;
+    border-radius: 10px;
+}
