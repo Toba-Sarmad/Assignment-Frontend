@@ -28,3 +28,24 @@ function displayProducts(list) {
     });
 }
 
+//SEARCH
+searchInput.addEventListener("input", () => {
+    const q = searchInput.value.toLowerCase();
+
+
+    cont filtered = products.filter(p =>
+        (p.product_name || "").toLowerCase().includes(q)
+    );
+
+
+    displayProducts(filtered);
+});
+
+
+//CATEGORY CLICK
+document.querySelectorAll("nav button").forEach(btn => {
+    btn.addEventListener("click", () => {
+        searchInput.value = ""; //reset search
+        loadCategory(btn.dataset.cat);
+    });
+});
