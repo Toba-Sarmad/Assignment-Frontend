@@ -33,7 +33,7 @@ searchInput.addEventListener("input", () => {
     const q = searchInput.value.toLowerCase();
 
 
-    cont filtered = products.filter(p =>
+    const filtered = products.filter(p =>
         (p.product_name || "").toLowerCase().includes(q)
     );
 
