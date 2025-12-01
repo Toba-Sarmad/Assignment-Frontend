@@ -74,7 +74,7 @@ main {
 
 cart {
     flex: 1;
-    background: white;
+    background: rgb(54, 18, 18);
     padding: 15px;
     margin-left: 20px;
     border-radius: 10px;
@@ -83,7 +83,7 @@ cart {
 
 .checkout-btn {
     display: block;
-    background: darkbrown;
+    background: rgb(54, 18, 18);
     color: #e1dede;
     padding: 10px;
     text-align: center;
