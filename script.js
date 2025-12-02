@@ -8,6 +8,25 @@ const categoryAPI = {
     drinks: "https://world.openfoodfacts.org/api/v2/search?categories_tags=beverages",
 };
 
+let products = [];
+
+// FETCH PRODUCTS BY CATEGORY
+async function loadCategory(cat) {
+    const url = categoryAPI[cat];
+    const res = await fetch(url);
+    const data = await res.json();
+
+
+    // filtrerar bort tomma produkter
+    products = data.products
+        .filter(p => p.product_name && p.image_url)
+        .slice(0, 20);
+
+
+    displayProducts(products);
+}
+
+
 function displayProducts(list) {
     productList.innerHTML = "";
 
