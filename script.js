@@ -1,3 +1,12 @@
+const productList = document.getElementById("productList");
+const searchInput = document.getElementById("searchInput");
+const cartList = document.getElementById("cartItems");
+const totalPriceEl = document.getElementById("totalPrice");
+
+
+
+
+
 //API endpoints per kategori
 const categoryAPI = {
     snacks: "https://world.openfoodfacts.org/api/v2/search?categories_tags=snacks",
