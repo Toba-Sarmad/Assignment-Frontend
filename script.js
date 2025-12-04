@@ -4,7 +4,8 @@ const cartList = document.getElementById("cartItems");
 const totalPriceEl = document.getElementById("totalPrice");
 
 
-
+// CART
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 
 //API endpoints per kategori
@@ -77,3 +78,41 @@ document.querySelectorAll("nav button").forEach(btn => {
         loadCategory(btn.dataset.cat);
     });
 });
+
+
+//Cart System
+function addToCart(id, name) {
+    cart.push({ id, name, price: 29.90 });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+}
+
+
+//Remove Item from Cart
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+}
+
+
+function renderCart() {
+    cartList.innerHTML = "";
+    let total = 0;
+
+
+    cart.forEach((item, index) => {
+        total += itemm.price;
+
+
+        const li = document.createElement("li");
+        li.innerHTML = `
+            ${item.name} – ${item.price} kr
+            <button class="remove-btn" onclick="removeFromCart(${index})">x</button>
+        `;
+        cartList.appendChild(li);
+   })
+
+
+   totalPriceEl.textContent = `Totalt: ${total.toFixed(2)} kr`;
+}
