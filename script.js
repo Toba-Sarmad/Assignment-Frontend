@@ -7,6 +7,10 @@ const totalPriceEl = document.getElementById("totalPrice");
 // CART
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+function updateCartCount() {
+    const count = cart.length;
+    document.getElementById("cartCount").textContent = count;
+}
 
 //API endpoints per kategori
 const categoryAPI = {
@@ -51,6 +55,10 @@ function displayProducts(list) {
             <h3>${p.product_name}</h3>
             <p>${p.brands || ''}</p>
             <p>${(p.nutriments?.energy_value || 100) / 10} kr</p>
+
+             <div class="actions">
+                <button onclick="addToCart('${p.code}', '${p.product_name}')">Lägg i kundvagn</button>
+            </div>
         `;
 
         productList.appendChild(card);
@@ -85,6 +93,7 @@ function addToCart(id, name) {
     cart.push({ id, name, price: 29.90 });
     localStorage.setItem("cart", JSON.stringify(cart));
     renderCart();
+    updateCartCount();
 }
 
 
@@ -93,6 +102,7 @@ function removeFromCart(index) {
     cart.splice(index, 1);
     localStorage.setItem("cart", JSON.stringify(cart));
     renderCart();
+    updateCartCount();
 }
 
 
@@ -102,7 +112,7 @@ function renderCart() {
 
 
     cart.forEach((item, index) => {
-        total += itemm.price;
+        total += item.price;
 
 
         const li = document.createElement("li");
@@ -116,3 +126,8 @@ function renderCart() {
 
    totalPriceEl.textContent = `Totalt: ${total.toFixed(2)} kr`;
 }
+
+
+
+renderCart();
+updateCartCount();
