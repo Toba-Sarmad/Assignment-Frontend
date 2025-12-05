@@ -23,3 +23,36 @@
     <button id="finishOrder" class="checkout-btn">Slutför köp</button>
     <a href="index.html" class="back-btn"> <-- Tillbaka till butiken</a>
 </main>
+
+
+<script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+
+    const list = document.getElementById("orderList");
+    const totalEl = document.getElementById("orderTotal");
+
+
+    let total = 0;
+
+
+    cart.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} - ${item.price} kr`;
+        list.appendChild(li);
+        total += item.price;   
+    });
+
+
+    totalEl.textContent = `Totalt: ${total.toFixed(2)} kr`;
+
+
+    document.getElementById("finishOrder").addEventListener("click", () => {
+        alert("Tack för ditt köp!");
+        localStorage.removeItem("cart");
+        window.location.href = "index.html";
+    });
+</script>
+
+</body>
+</html>
