@@ -1,5 +1,6 @@
 const productList = document.getElementById("productList");
 const searchInput = document.getElementById("searchInput");
+
 const cartList = document.getElementById("cartItems");
 const totalPriceEl = document.getElementById("totalPrice");
 
@@ -92,7 +93,8 @@ document.querySelectorAll("nav button").forEach(btn => {
 function addToCart(id, name) {
     cart.push({ id, name, price: 29.90 });
     localStorage.setItem("cart", JSON.stringify(cart));
-    renderCart();
+    //renderCart();
+    renderCartPopup();
     updateCartCount();
 }
 
@@ -101,11 +103,12 @@ function addToCart(id, name) {
 function removeFromCart(index) {
     cart.splice(index, 1);
     localStorage.setItem("cart", JSON.stringify(cart));
-    renderCart();
+    //renderCart();
+    renderCartPopup();
     updateCartCount();
 }
 
-
+/*
 function renderCart() {
     cartList.innerHTML = "";
     let total = 0;
@@ -126,8 +129,30 @@ function renderCart() {
 
    totalPriceEl.textContent = `Totalt: ${total.toFixed(2)} kr`;
 }
+*/
 
+function renderCartPopup() {
+    const popupList = document.getElementById("popupCartItems");
+    const popupTotal = document.getElementById("popupTotalPrice");
 
+    popupList.innerHTML = "";
+    let total = 0;
 
-renderCart();
+    cart.forEach((item, index) => {
+        total += item.price;
+
+        const li = document.createElement("li");
+        li.innerHTML = `
+            ${item.name} - ${item.price} kr
+            <button class="remove-btn" onclick="removeFromCart(${index}); renderCartPopup();">x</button>
+        `;
+        popupList.appendChild(li);
+    });
+
+    popupTotal.textContent = `Totalt: ${total.toFixed(2)} kr`;
+}
+
+//renderCart();
+renderCartPopup();
 updateCartCount();
+loadCategory("snacks");
