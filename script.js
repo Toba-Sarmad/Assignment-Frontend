@@ -49,7 +49,7 @@ function displayProducts(list) {
         const card = document.createElement("div");
         card.classList.add("card");
 
-        
+        const isFavorite = favorites.some(f => f.id === p.code);
 
         card.innerHTML = `
             <img src="${p.image_url}">
@@ -57,8 +57,13 @@ function displayProducts(list) {
             <p>${p.brands || ''}</p>
             <p>${(p.nutriments?.energy_value || 100) / 10} kr</p>
 
-             <div class="actions">
+            <div class="actions">
                 <button onclick="addToCart('${p.code}', '${p.product_name}')">Lägg i kundvagn</button>
+
+                <span class="heart ${isFavorite ? 'active' : ''}" 
+                      onclick="toggleFavorite('${p.code}', '${p.product_name}', '${p.image_url}')">
+                      ❤️
+                </span>
             </div>
         `;
 
@@ -150,6 +155,35 @@ function renderCartPopup() {
     });
 
     popupTotal.textContent = `Totalt: ${total.toFixed(2)} kr`;
+}
+
+// FAVORITER
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+function showFavoriteToast(message) {
+    const toast = document.getElementById("favorite-toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2000);
+}
+
+
+function toggleFavorite(id, name, img) {
+    const index = favorites.findIndex(f => f.id === id);
+
+    if (index === -1) {
+        favorites.push({ id, name, img });
+        showFavoriteToast(`❤️ "${name}" har lagts till i favoriter`);
+    } else {
+        favorites.splice(index, 1);
+        showFavoriteToast(`💔 "${name}" togs bort från favoriter`);
+    }
+
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    displayProducts(products);
 }
 
 //renderCart();
