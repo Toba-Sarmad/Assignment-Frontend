@@ -1,8 +1,8 @@
 const productList = document.getElementById("productList");
 const searchInput = document.getElementById("searchInput");
 
-const cartList = document.getElementById("cartItems");
-const totalPriceEl = document.getElementById("totalPrice");
+//const cartList = document.getElementById("cartItems");
+//const totalPriceEl = document.getElementById("totalPrice");
 
 
 // CART
@@ -84,11 +84,30 @@ searchInput.addEventListener("input", () => {
     displayProducts(filtered);
 });
 
-
+/*
 //CATEGORY CLICK
 document.querySelectorAll("nav button").forEach(btn => {
     btn.addEventListener("click", () => {
         searchInput.value = ""; //reset search
+        loadCategory(btn.dataset.cat);
+    });
+});
+*/
+
+// CATEGORY CLICK
+document.querySelectorAll("nav button").forEach(btn => {
+    btn.addEventListener("click", () => {
+
+        // Ta bort aktiv klass från alla knappar
+        document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+
+        // Lägg till aktiv klass på den klickade knappen
+        btn.classList.add("active");
+
+        // Nollställ sökfältet
+        searchInput.value = "";
+
+        // Ladda vald kategori
         loadCategory(btn.dataset.cat);
     });
 });
